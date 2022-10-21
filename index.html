@@ -4,12 +4,287 @@
     <meta charset="UTF-8">
     <title>gem-puzzle</title>
     <style type="text/css">
-      
+      body {
+        margin: 0;
+      }
+      .container {
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .puzzle {
+        background-color: silver;
+        border: 3px solid silver;
+        
+        box-sizing: border-box;
+        width: 320px;
+        height: 320px;
+
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+
+      .square {
+      	position: static;
+      	left: 0%;
+      	top: 0%;
+      	transition: left 0.2s ease-in-out, top 0.2s ease-in-out;
+      	user-select: none;
+        background: green;
+        text-align: center;
+        font-size: 1.6em;
+        line-height: 3em;
+        color: white;
+        text-shadow: black 1px 0 5px;
+      }
+      #tail {
+        background-color: transparent;
+      }
+      #square-1 {
+        background-color: maroon;
+      }
+      #square-2 {
+        background-color: red;
+      }
+      #square-3 {
+        background-color: purple;
+      }
+      #square-4 {
+        background-color: fuchsia;
+      }
+      #square-5 {
+        background-color: green;
+      }
+      #square-6 {
+        background-color: lime;
+      }
+      #square-7 {
+        background-color: olive;
+      }
+      #square-8 {
+        background-color: yellow;
+      }
+      #square-9 {
+        background-color: navy;
+      }
+      #square-10 {
+        background-color: blue;
+      }
+      #square-11 {
+        background-color: teal;
+      }
+      #square-12 {
+        background-color: aqua;
+      }
+      #square-13 {
+        background-color: #404000;
+      }
+      #square-14 {
+        background-color: #808000;
+      }
+      #square-15 {
+        background-color: #804040;
+      }
+      #square-16 {
+        background-color: #FF8080;
+      }
     </style>
   </head>
   <body>
+    <div class="container">
+      <div class="line1">
+        <button class="start-btn" type="button">Shuffle and start</button>
+        <button class="stop-btn" type="button">Stop</button>
+        <button class="save-btn" type="button">Save</button>
+        <button class="results-btn" type="button">Results</button>
+      </div>
+      <div class="line2">
+        <div class="indicators">
+          <span class="moves">
+            Moves:
+            <span class="moves-val">0</span>
+          </span>
+          <span class="time">
+            Time:
+            <span class="time-val">00:00</span>
+          </span>
+        </div>
+      </div>
+      <div class="line3"></div>
+      <div class="line4">
+        <div id='puzzle' class="puzzle puzzle-4x4">
+          
+          <div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+            <div data-index='4' class=" square" id="square-4">4</div>
+          </div>
+          
+          <div id="row2" class="row">
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-6">6</div>
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='9' class=" square" id="square-9">9</div>
+            <div data-index='10' class=" square" id="square-10">10</div>
+            <div data-index='11' class=" square" id="square-11">11</div>
+            <div data-index='12' class=" square" id="square-12">12</div>
+          </div>
+          
+          <div id="row4" class="row"> 
+            <div data-index='13' class=" square" id="square-13">13</div>
+            <div data-index='14' class=" square" id="square-14">14</div>
+            <div data-index='15' class=" square" id="square-15">15</div>
+            <div id="tail" class="tail"></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="line5">
+        <div class="frame-size">
+          Frame size:
+          <span class="frame-size-val">4x4</span>
+        </div>
+      </div>
+      <div class="line6">
+        <div class="other-sizes">
+          Other sizes:
+          <a class="other-sizes-3x3" href="#">3x3</a>
+          <a class="other-sizes-4x4" href="#">4x4</a>
+          <a class="other-sizes-8x8" href="#">8x8</a>
+        </div>
+      </div>
+    </div>
     <script type="text/javascript">
-      
+      const line4 = document.body.querySelector(".line4");
+
+      puzzle.onpointerdown = function(event) {
+      	let cell = event.target.closest(".square");
+      	if (!cell) return;
+
+      	let wasDragged = false;
+
+      	this.onpointerup = function(event) {
+      		if (wasDragged) return;
+
+      		let row = cell.parentNode;
+      		let cells = cell.parentNode.children;;
+      		let index = [].indexOf.call(cells, cell);
+      		let topSqr = row.previousElementSibling?.children[index];
+      		let bottomSqr = row.nextElementSibling?.children[index];
+
+      		if (cell.nextElementSibling?.closest(".tail")) {
+      			cell.style.position = "relative";
+      			cell.style.left = "100%";
+      			
+      			setTimeout(() => {
+	      			cell.nextElementSibling.after(cell);
+	      			cell.style.left = "0%";
+	      			cell.style.position = "";
+
+	      			checkPuzzle();
+      			}, 200);
+      		}
+
+      		if (cell.previousElementSibling?.closest(".tail")) {
+      			cell.style.position = "relative";
+      			cell.style.left = "-100%";
+      			
+      			setTimeout(() => {
+	      			cell.previousElementSibling?.before(cell);
+	      			cell.style.left = "0%";
+	      			cell.style.position = "";
+
+	      			checkPuzzle();
+      			}, 200);
+      		}
+
+      		
+      		if (topSqr?.classList.contains("tail")) {
+      			cell.style.position = "relative";
+      			cell.style.top = "-100%";
+
+      			let prevToOuterSqr = topSqr.previousElementSibling;
+      			let nextToOuterSqr = topSqr.nextElementSibling;
+
+      			setTimeout(() => {
+
+      				cell.replaceWith(topSqr);
+
+      				if (prevToOuterSqr) {
+      					prevToOuterSqr.after(cell);
+      				} else {
+      					nextToOuterSqr.before(cell);
+      				}
+	      			
+	      			cell.style.top = "0%";
+	      			cell.style.position = "";
+
+	      			checkPuzzle();
+      			}, 200);
+      		}
+
+      		if (bottomSqr?.classList.contains("tail")) {
+      			cell.style.position = "relative";
+      			cell.style.top = "100%";
+
+      			let prevToOuterSqr = bottomSqr.previousElementSibling;
+      			let nextToOuterSqr = bottomSqr.nextElementSibling;
+
+      			setTimeout(() => {
+
+      				cell.replaceWith(bottomSqr);
+
+      				if (prevToOuterSqr) {
+      					prevToOuterSqr.after(cell);
+      				} else {
+      					nextToOuterSqr.before(cell);
+      				}
+	      			
+	      			cell.style.top = "0%";
+	      			cell.style.position = "";
+
+	      			checkPuzzle();
+      			}, 200);
+      		}
+      	}
+
+      	this.onpointermove = function(event) {
+      		event.preventDefault();
+
+      	}
+
+      	function checkPuzzle() {
+      		if (!row4.lastElementChild.classList.contains("tail")) {
+      			return;
+      		}
+
+      		let rowElem = row1;
+      		let index = 1;
+
+      		label:
+      		while (rowElem) {
+      			for (let sqr of rowElem.children) {
+      				if (+sqr.dataset.index != index) {
+      					break label;
+      				}
+      				index++;
+      			}
+
+      			rowElem = rowElem.nextElementSibling;
+      		}
+
+      		if (index == 16) alert("WIN")
+      	}
+      }
     </script>
   </body>
 </html>
