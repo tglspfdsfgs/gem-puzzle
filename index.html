@@ -4,120 +4,356 @@
     <meta charset="UTF-8">
     <title>gem-puzzle</title>
     <style type="text/css">
-      body {
-        margin: 0;
-      }
-      .container {
-        width: 320px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .puzzle {
-        background-color: silver;
-        border: 3px solid silver;
-        
-        box-sizing: border-box;
-        width: 320px;
-        height: 320px;
+	  body {
+	    margin: 0;
+	  }
+	  .container {
+	    width: 320px;
+	    margin-left: auto;
+	    margin-right: auto;
+	  }
 
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-      }
-      .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-      }
+	  .line1 {
+	  	display: flex;
+	  	justify-content: space-between;
+	  }
 
-      .square {
-      	position: static;
-      	left: 0%;
-      	top: 0%;
-      	transition: left 0.2s ease-in-out, top 0.2s ease-in-out;
-      	user-select: none;
-        background: green;
-        text-align: center;
-        font-size: 1.6em;
-        line-height: 3em;
-        color: white;
-        text-shadow: black 1px 0 5px;
-      }
-      #tail {
-        background-color: transparent;
-      }
-      #square-1 {
-        background-color: maroon;
-      }
-      #square-2 {
-        background-color: red;
-      }
-      #square-3 {
-        background-color: purple;
-      }
-      #square-4 {
-        background-color: fuchsia;
-      }
-      #square-5 {
-        background-color: green;
-      }
-      #square-6 {
-        background-color: lime;
-      }
-      #square-7 {
-        background-color: olive;
-      }
-      #square-8 {
-        background-color: yellow;
-      }
-      #square-9 {
-        background-color: navy;
-      }
-      #square-10 {
-        background-color: blue;
-      }
-      #square-11 {
-        background-color: teal;
-      }
-      #square-12 {
-        background-color: aqua;
-      }
-      #square-13 {
-        background-color: #404000;
-      }
-      #square-14 {
-        background-color: #808000;
-      }
-      #square-15 {
-        background-color: #804040;
-      }
-      #square-16 {
-        background-color: #FF8080;
-      }
+	  .line1 button {
+	  	flex-basis: 24%;
+	  }
+
+	  .other-sizes a:visited,
+	  .other-sizes a {
+	  	color: blue;
+	  }
+	  .puzzle {
+	    background: silver;
+	    border: 3px solid silver;
+	    
+	    box-sizing: border-box;
+	    width: 320px;
+	    height: 320px;
+
+	    display: grid;
+	  }
+	  .puzzle-3x4 {
+	  	grid-template-rows: 1fr 1fr 1fr;
+	  }
+
+	  .puzzle-4x4 {
+	  	grid-template-rows: 1fr 1fr 1fr 1fr;
+	  }
+
+	  .puzzle-8x8 {
+	  	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	  }
+
+	  .row {
+	    display: grid;
+	  }
+
+	  .puzzle-4x4 .row {
+	  	grid-template-columns: 1fr 1fr 1fr 1fr;
+	  }
+
+	  .puzzle-8x8 .row {
+	  	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	  }
+
+	  .puzzle-3x3 .row {
+	  	grid-template-columns: 1fr 1fr 1fr;
+	  }
+
+	  .square {
+	  	position: static;
+	  	left: 0%;
+	  	top: 0%;
+	  	transition: left 0.2s ease-in-out, top 0.2s ease-in-out;
+	  	user-select: none;
+	    background: green;
+	    text-align: center;
+	    
+	    line-height: 3em;
+	    color: white;
+	    text-shadow: black 1px 0 5px;
+	  }
+
+	  .puzzle-4x4 .square {
+	  	font-size: 1.6em;
+	  }
+
+	  .puzzle-8x8 .square {
+	  	font-size: 0.8em;
+	  }
+
+	  .puzzle-3x3 .square {
+	  	font-size: 2.15em;
+	  }
+
+	  #tail {
+	    background: transparent;
+	  }
+	  #square-1 {
+	    background: maroon;
+	  }
+	  #square-2 {
+	    background: red;
+
+	  }
+	  #square-3 {
+	    background: purple;
+	  }
+	  #square-4 {
+	    background: fuchsia;
+	  }
+	  #square-5 {
+	    background: green;
+	  }
+	  #square-6 {
+	    background: lime;
+	  }
+	  #square-7 {
+	    background: olive;
+	  }
+	  #square-8 {
+	    background: yellow;
+	  }
+	  #square-9 {
+	    background: navy;
+	  }
+	  #square-10 {
+	    background: blue;
+	  }
+	  #square-11 {
+	    background: teal;
+	  }
+	  #square-12 {
+	    background: aqua;
+	  }
+	  #square-13 {
+	    background: #404000;
+	  }
+	  #square-14 {
+	    background: #808000;
+	  }
+	  #square-15 {
+	    background: #804040;
+	  }
+	  #square-16 {
+	    background: #FF8080;
+	  }
+
+	  #square-17 {
+	    background: #202040;
+	  }
+	  #square-18 {
+	    background: #404080;
+	  }
+	  #square-19 {
+	    background: #406060;
+	  }
+	  #square-20 {
+	    background: #80C0C0;
+	  }
+
+	  #square-21 {
+	    background: #303020;
+	  }
+	  #square-22 {
+	    background: #606040;
+	  }
+	  #square-23 {
+	    background: #605050;
+	  }
+	  #square-24 {
+	    background: #C0A0A0;
+	  }
+
+	  #square-25 {
+	    background: #800040;
+	  }
+	  #square-26 {
+	    background: #FF0080;
+	  }
+	  #square-27 {
+	    background: #408000;
+	  }
+	  #square-28 {
+	    background: #80FF00;
+	  }
+
+	  #square-29 {
+	    background: #004080;
+	  }
+	  #square-30 {
+	    background: #0080FF;
+	  }
+	  #square-31 {
+	    background: #604020;
+	  }
+	  #square-32 {
+	    background: #C08040;
+	  }
+
+	  #square-33 {
+	    background: maroon;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-34 {
+	    background: red;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-35 {
+	    background: purple;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-36 {
+	    background: fuchsia;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-37 {
+	    background: green;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-38 {
+	    background: lime;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-39 {
+	    background: olive;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-40 {
+	    background: yellow;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-41 {
+	    background: navy;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-42 {
+	    background: blue;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-43 {
+	    background: teal;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-44 {
+	    background: aqua;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-45 {
+	    background: #404000;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-46 {
+	    background: #808000;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-47 {
+	    background: #804040;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-48 {
+	    background: #FF8080;
+	    filter: hue-rotate(60deg);
+	  }
+
+	  #square-49 {
+	    background: #202040;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-50 {
+	    background: #404080;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-51 {
+	    background: #406060;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-52 {
+	    background: #80C0C0;
+	    filter: hue-rotate(60deg);
+	  }
+
+	  #square-53 {
+	    background: #303020;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-54 {
+	    background: #606040;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-55 {
+	    background: #605050;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-56 {
+	    background: #C0A0A0;
+	    filter: hue-rotate(60deg);
+	  }
+
+	  #square-57 {
+	    background: #800040;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-58 {
+	    background: #FF0080;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-59 {
+	    background: #408000;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-60 {
+	    background: #80FF00;
+	    filter: hue-rotate(60deg);
+	  }
+
+	  #square-61 {
+	    background: #004080;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-62 {
+	    background: #0080FF;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-63 {
+	    background: #604020;
+	    filter: hue-rotate(60deg);
+	  }
+	  #square-64 {
+	    background: #C08040;
+	    filter: hue-rotate(60deg);
+	  }
+
     </style>
   </head>
   <body>
     <div class="container">
       <div class="line1">
-        <button class="start-btn" type="button">Shuffle and start</button>
-        <button class="stop-btn" type="button">Stop</button>
-        <button class="save-btn" type="button">Save</button>
-        <button class="results-btn" type="button">Results</button>
+        <button class="start-btn" type="button" id="shuffleBtn">Shuffle and start</button>
+        <button class="save-btn" type="button" id="saveBtn">Save</button>
+        <button class="results-btn" type="button" id="resultsBtn">Results</button>
+        <button class="sounds-btn" type="button" id="soundsBtn">Sounds on/off</button>
       </div>
       <div class="line2">
         <div class="indicators">
           <span class="moves">
             Moves:
-            <span class="moves-val">0</span>
+            <span id="movesVal" class="moves-val">0</span>
           </span>
           <span class="time">
             Time:
-            <span class="time-val">00:00</span>
+            <span id="timeVal" class="time-val">00:00</span>
           </span>
         </div>
       </div>
       <div class="line3"></div>
       <div class="line4">
         <div id='puzzle' class="puzzle puzzle-4x4">
-          
+
           <div id="row1" class="row">
             <div data-index='1' class=" square" id="square-1">1</div>
             <div data-index='2' class=" square" id="square-2">2</div>
@@ -143,148 +379,761 @@
             <div data-index='13' class=" square" id="square-13">13</div>
             <div data-index='14' class=" square" id="square-14">14</div>
             <div data-index='15' class=" square" id="square-15">15</div>
-            <div id="tail" class="tail"></div>
+            <div id="tail" class="square tail"></div>
           </div>
 
         </div>
       </div>
+
+   
       <div class="line5">
         <div class="frame-size">
           Frame size:
-          <span class="frame-size-val">4x4</span>
+          <span id="frameSizeVal">4x4</span>
         </div>
       </div>
       <div class="line6">
         <div class="other-sizes">
           Other sizes:
-          <a class="other-sizes-3x3" href="#">3x3</a>
-          <a class="other-sizes-4x4" href="#">4x4</a>
-          <a class="other-sizes-8x8" href="#">8x8</a>
+          <a id="size3x3Btn" href="#">3x3</a>
+          <a id="size4x4Btn" href="#">4x4</a>
+          <a id="size8x8Btn" href="#">8x8</a>
+        </div>
+        
+        <div class="other-sizes">
+          Сheck for solvability:
+          <a id="sizeSolvability3x3Btn" href="#">3x3</a>
+          <a id="sizeSolvability4x4Btn" href="#">4x4</a>
+          <a id="sizeSolvability8x8Btn" href="#">8x8</a>
+          <br>(for cross-check rewievers)
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-      const line4 = document.body.querySelector(".line4");
 
-      puzzle.onpointerdown = function(event) {
+    <script type="text/javascript">
+
+	let sounds = true;
+	let stepSound = new Audio('step.mp3');
+	let winSound = new Audio('win.mp3');
+	let shuffleSound = new Audio('shuffle.mp3');
+
+	let frameSize = 4;
+	let movesCount = 0;
+	let timeCount = 0;
+
+	let timerId = setInterval(() => {
+		++timeCount;
+		let sec = timeCount%60;
+		let min = Math.trunc(timeCount/60);
+		timeVal.innerText = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+	}, 1000);
+
+	size4x4Btn.onpointerup = function(event) {
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add("puzzle-4x4");
+		puzzle.innerHTML = `
+		<div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+            <div data-index='4' class=" square" id="square-4">4</div>
+          </div>
+          
+          <div id="row2" class="row">
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-6">6</div>
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='9' class=" square" id="square-9">9</div>
+            <div data-index='10' class=" square" id="square-10">10</div>
+            <div data-index='11' class=" square" id="square-11">11</div>
+            <div data-index='12' class=" square" id="square-12">12</div>
+          </div>
+
+          <div id="row4" class="row">
+            <div data-index='13' class=" square" id="square-13">13</div>
+            <div data-index='14' class=" square" id="square-14">14</div>
+            <div data-index='15' class=" square" id="square-15">15</div>
+            <div id="tail" class="square tail"></div>
+          </div>
+		`;
+		frameSize = 4;
+		frameSizeVal.innerText = "4x4";
+		shufflePuzzle(frameSize);
+
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+	size3x3Btn.onpointerup = function(event) {
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add("puzzle-3x3");
+		puzzle.innerHTML = `
+          <div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+          </div>
+          
+          <div id="row2" class="row">
+          	<div data-index='4' class=" square" id="square-6">4</div>
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-4">6</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+            <div id="tail" class="square tail"></div>
+          </div>
+		`;
+		frameSize = 3;
+		frameSizeVal.innerText = "3x3";
+		shufflePuzzle(frameSize);
+		
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+	size8x8Btn.onpointerup = function(event) {
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add("puzzle-8x8");
+		puzzle.innerHTML = `
+          <div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+            <div data-index='4' class=" square" id="square-4">4</div>
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-6">6</div>
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+          </div>
+          
+          <div id="row2" class="row">
+            <div data-index='9' class=" square" id="square-9">9</div>
+            <div data-index='10' class=" square" id="square-10">10</div>
+            <div data-index='11' class=" square" id="square-11">11</div>
+            <div data-index='12' class=" square" id="square-12">12</div>
+            <div data-index='13' class=" square" id="square-13">13</div>
+            <div data-index='14' class=" square" id="square-14">14</div>
+            <div data-index='15' class=" square" id="square-15">15</div>
+            <div data-index='16' class=" square" id="square-16">16</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='17' class=" square" id="square-17">17</div>
+            <div data-index='18' class=" square" id="square-18">18</div>
+            <div data-index='19' class=" square" id="square-19">19</div>
+            <div data-index='20' class=" square" id="square-20">20</div>
+            <div data-index='21' class=" square" id="square-21">21</div>
+            <div data-index='22' class=" square" id="square-22">22</div>
+            <div data-index='23' class=" square" id="square-23">23</div>
+            <div data-index='24' class=" square" id="square-24">24</div>
+          </div>
+          
+          <div id="row4" class="row"> 
+            <div data-index='25' class=" square" id="square-25">25</div>
+            <div data-index='26' class=" square" id="square-26">26</div>
+            <div data-index='27' class=" square" id="square-27">27</div>
+            <div data-index='28' class=" square" id="square-28">28</div>
+            <div data-index='29' class=" square" id="square-29">29</div>
+            <div data-index='30' class=" square" id="square-30">30</div>
+            <div data-index='31' class=" square" id="square-31">31</div>
+            <div data-index='32' class=" square" id="square-32">32</div>
+          </div>
+
+          <div id="row5" class="row"> 
+            <div data-index='33' class=" square" id="square-33">33</div>
+            <div data-index='34' class=" square" id="square-34">34</div>
+            <div data-index='35' class=" square" id="square-35">35</div>
+            <div data-index='36' class=" square" id="square-36">36</div>
+            <div data-index='37' class=" square" id="square-37">37</div>
+            <div data-index='38' class=" square" id="square-38">38</div>
+            <div data-index='39' class=" square" id="square-39">39</div>
+            <div data-index='40' class=" square" id="square-40">40</div>
+          </div>
+
+          <div id="row6" class="row"> 
+            <div data-index='41' class=" square" id="square-41">41</div>
+            <div data-index='42' class=" square" id="square-42">42</div>
+            <div data-index='43' class=" square" id="square-43">43</div>
+            <div data-index='44' class=" square" id="square-44">44</div>
+            <div data-index='45' class=" square" id="square-45">45</div>
+            <div data-index='46' class=" square" id="square-46">46</div>
+            <div data-index='47' class=" square" id="square-47">47</div>
+            <div data-index='48' class=" square" id="square-48">48</div>
+          </div>
+
+          <div id="row7" class="row"> 
+            <div data-index='49' class=" square" id="square-49">49</div>
+            <div data-index='50' class=" square" id="square-50">50</div>
+            <div data-index='51' class=" square" id="square-51">51</div>
+            <div data-index='52' class=" square" id="square-52">52</div>
+            <div data-index='53' class=" square" id="square-53">53</div>
+            <div data-index='54' class=" square" id="square-54">54</div>
+            <div data-index='55' class=" square" id="square-55">55</div>
+            <div data-index='56' class=" square" id="square-56">56</div>
+          </div>
+
+          <div id="row8" class="row"> 
+            <div data-index='57' class=" square" id="square-57">57</div>
+            <div data-index='58' class=" square" id="square-58">58</div>
+            <div data-index='59' class=" square" id="square-59">59</div>
+            <div data-index='60' class=" square" id="square-60">60</div>
+            <div data-index='61' class=" square" id="square-61">61</div>
+            <div data-index='62' class=" square" id="square-62">62</div>
+            <div data-index='63' class=" square" id="square-63">63</div>
+            <div id="tail" class="square tail"></div>
+          </div>
+		`;
+		frameSize = 8;
+		frameSizeVal.innerText = "8x8";
+		shufflePuzzle(frameSize);
+		
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+	sizeSolvability3x3Btn.onpointerup = function(event) {
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add("puzzle-3x3");
+		puzzle.innerHTML = `
+          <div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+          </div>
+          
+          <div id="row2" class="row">
+          	<div data-index='4' class=" square" id="square-6">4</div>
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-4">6</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div id="tail" class="square tail"></div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+          </div>
+		`;
+		frameSize = 3;
+		frameSizeVal.innerText = "3x3";
+
+		if (sounds) shuffleSound.play();
+
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+	sizeSolvability4x4Btn.onpointerup = function(event) {
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add("puzzle-4x4");
+		puzzle.innerHTML = `
+		<div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+            <div data-index='4' class=" square" id="square-4">4</div>
+          </div>
+          
+          <div id="row2" class="row">
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-6">6</div>
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='9' class=" square" id="square-9">9</div>
+            <div data-index='10' class=" square" id="square-10">10</div>
+            <div data-index='11' class=" square" id="square-11">11</div>
+            <div data-index='12' class=" square" id="square-12">12</div>
+          </div>
+
+          <div id="row4" class="row">
+            <div data-index='13' class=" square" id="square-13">13</div>
+            <div data-index='14' class=" square" id="square-14">14</div>
+            <div id="tail" class="square tail"></div>
+            <div data-index='15' class=" square" id="square-15">15</div>
+          </div>
+		`;
+		frameSize = 4;
+		frameSizeVal.innerText = "4x4";
+
+		if (sounds) shuffleSound.play();
+
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+	sizeSolvability8x8Btn.onpointerup = function(event) {
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add("puzzle-8x8");
+		puzzle.innerHTML = `
+          <div id="row1" class="row">
+            <div data-index='1' class=" square" id="square-1">1</div>
+            <div data-index='2' class=" square" id="square-2">2</div>
+            <div data-index='3' class=" square" id="square-3">3</div>
+            <div data-index='4' class=" square" id="square-4">4</div>
+            <div data-index='5' class=" square" id="square-5">5</div>
+            <div data-index='6' class=" square" id="square-6">6</div>
+            <div data-index='7' class=" square" id="square-7">7</div>
+            <div data-index='8' class=" square" id="square-8">8</div>
+          </div>
+          
+          <div id="row2" class="row">
+            <div data-index='9' class=" square" id="square-9">9</div>
+            <div data-index='10' class=" square" id="square-10">10</div>
+            <div data-index='11' class=" square" id="square-11">11</div>
+            <div data-index='12' class=" square" id="square-12">12</div>
+            <div data-index='13' class=" square" id="square-13">13</div>
+            <div data-index='14' class=" square" id="square-14">14</div>
+            <div data-index='15' class=" square" id="square-15">15</div>
+            <div data-index='16' class=" square" id="square-16">16</div>
+          </div>
+         
+          <div id="row3" class="row">
+            <div data-index='17' class=" square" id="square-17">17</div>
+            <div data-index='18' class=" square" id="square-18">18</div>
+            <div data-index='19' class=" square" id="square-19">19</div>
+            <div data-index='20' class=" square" id="square-20">20</div>
+            <div data-index='21' class=" square" id="square-21">21</div>
+            <div data-index='22' class=" square" id="square-22">22</div>
+            <div data-index='23' class=" square" id="square-23">23</div>
+            <div data-index='24' class=" square" id="square-24">24</div>
+          </div>
+          
+          <div id="row4" class="row"> 
+            <div data-index='25' class=" square" id="square-25">25</div>
+            <div data-index='26' class=" square" id="square-26">26</div>
+            <div data-index='27' class=" square" id="square-27">27</div>
+            <div data-index='28' class=" square" id="square-28">28</div>
+            <div data-index='29' class=" square" id="square-29">29</div>
+            <div data-index='30' class=" square" id="square-30">30</div>
+            <div data-index='31' class=" square" id="square-31">31</div>
+            <div data-index='32' class=" square" id="square-32">32</div>
+          </div>
+
+          <div id="row5" class="row"> 
+            <div data-index='33' class=" square" id="square-33">33</div>
+            <div data-index='34' class=" square" id="square-34">34</div>
+            <div data-index='35' class=" square" id="square-35">35</div>
+            <div data-index='36' class=" square" id="square-36">36</div>
+            <div data-index='37' class=" square" id="square-37">37</div>
+            <div data-index='38' class=" square" id="square-38">38</div>
+            <div data-index='39' class=" square" id="square-39">39</div>
+            <div data-index='40' class=" square" id="square-40">40</div>
+          </div>
+
+          <div id="row6" class="row"> 
+            <div data-index='41' class=" square" id="square-41">41</div>
+            <div data-index='42' class=" square" id="square-42">42</div>
+            <div data-index='43' class=" square" id="square-43">43</div>
+            <div data-index='44' class=" square" id="square-44">44</div>
+            <div data-index='45' class=" square" id="square-45">45</div>
+            <div data-index='46' class=" square" id="square-46">46</div>
+            <div data-index='47' class=" square" id="square-47">47</div>
+            <div data-index='48' class=" square" id="square-48">48</div>
+          </div>
+
+          <div id="row7" class="row"> 
+            <div data-index='49' class=" square" id="square-49">49</div>
+            <div data-index='50' class=" square" id="square-50">50</div>
+            <div data-index='51' class=" square" id="square-51">51</div>
+            <div data-index='52' class=" square" id="square-52">52</div>
+            <div data-index='53' class=" square" id="square-53">53</div>
+            <div data-index='54' class=" square" id="square-54">54</div>
+            <div data-index='55' class=" square" id="square-55">55</div>
+            <div data-index='56' class=" square" id="square-56">56</div>
+          </div>
+
+          <div id="row8" class="row"> 
+            <div data-index='57' class=" square" id="square-57">57</div>
+            <div data-index='58' class=" square" id="square-58">58</div>
+            <div data-index='59' class=" square" id="square-59">59</div>
+            <div data-index='60' class=" square" id="square-60">60</div>
+            <div data-index='61' class=" square" id="square-61">61</div>
+            <div data-index='62' class=" square" id="square-62">62</div>
+            <div id="tail" class="square tail"></div>
+            <div data-index='63' class=" square" id="square-63">63</div>
+          </div>
+		`;
+		frameSize = 8;
+		frameSizeVal.innerText = "8x8";
+
+		if (sounds) shuffleSound.play();
+		
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+	soundsBtn.onpointerup = function(event) {
+		sounds = sounds ? false : true;
+	}
+
+	shuffleBtn.onpointerup = function(event) {
+		shufflePuzzle(frameSize);
+
+		movesCount = 0;
+		movesVal.innerText = movesCount;
+		timeCount = 0;
+		timeVal.innerText = "00:00";
+	}
+
+    puzzle.onpointerdown = function(event) {
       	let cell = event.target.closest(".square");
       	if (!cell) return;
 
+      	let row = cell.parentNode;
+  		let cells = cell.parentNode.children;;
+  		let index = [].indexOf.call(cells, cell);
+  		let topSqr = row.previousElementSibling?.children[index];
+  		let bottomSqr = row.nextElementSibling?.children[index];
+
+  		cell.style.transform = `translate(0px, 0px)`;
+  		let translateX = 0;
+  		let translateY = 0;
       	let wasDragged = false;
 
-      	this.onpointerup = function(event) {
-      		if (wasDragged) return;
+      	this.onpointerup = onPointerUp;
 
-      		let row = cell.parentNode;
-      		let cells = cell.parentNode.children;;
-      		let index = [].indexOf.call(cells, cell);
-      		let topSqr = row.previousElementSibling?.children[index];
-      		let bottomSqr = row.nextElementSibling?.children[index];
+      	function onPointerUp(event) {
 
       		if (cell.nextElementSibling?.closest(".tail")) {
-      			cell.style.position = "relative";
-      			cell.style.left = "100%";
-      			
-      			setTimeout(() => {
-	      			cell.nextElementSibling.after(cell);
-	      			cell.style.left = "0%";
-	      			cell.style.position = "";
 
-	      			checkPuzzle();
-      			}, 200);
+      			if (!wasDragged) {
+	      			cell.style.position = "relative";
+	      			cell.style.left = "100%";
+	      			
+	      			setTimeout(() => {
+		      			cell.nextElementSibling.after(cell);
+		      			cell.style.left = "0%";
+		      			cell.style.position = "";
+
+		      			movesVal.innerText = ++movesCount;
+
+		      			if (sounds) stepSound.play();
+
+		      			checkPuzzle(frameSize);
+	      			}, 200);
+      			} else {
+	  				if (translateX > cell.offsetWidth/2) {
+	  					cell.nextElementSibling.after(cell);
+	  					movesVal.innerText = ++movesCount;
+	  				}
+	  				cell.style.transform = "";
+
+	  				if (sounds) stepSound.play();
+
+	      			setTimeout(function() {
+	      				checkPuzzle(frameSize);
+	      			}, 0);
+      			}
+
+      			document.body.onpointermove = null;
+      			puzzle.onpointerup = null;
+      			
+      			return;
       		}
 
       		if (cell.previousElementSibling?.closest(".tail")) {
-      			cell.style.position = "relative";
-      			cell.style.left = "-100%";
-      			
-      			setTimeout(() => {
-	      			cell.previousElementSibling?.before(cell);
-	      			cell.style.left = "0%";
-	      			cell.style.position = "";
 
-	      			checkPuzzle();
-      			}, 200);
+      			if (!wasDragged) {
+	      			cell.style.position = "relative";
+	      			cell.style.left = "-100%";
+	      			
+	      			setTimeout(() => {
+		      			cell.previousElementSibling?.before(cell);
+		      			cell.style.left = "0%";
+		      			cell.style.position = "";
+
+		      			movesVal.innerText = ++movesCount;
+
+		      			if (sounds) stepSound.play();
+
+		      			checkPuzzle(frameSize);
+	      			}, 200);      				
+      			} else {
+	  				if (translateX < -cell.offsetWidth/2) {
+	  					cell.previousElementSibling?.before(cell);
+	  					movesVal.innerText = ++movesCount;
+	  				}
+	  				cell.style.transform = "";
+
+	  				if (sounds) stepSound.play();
+
+	      			setTimeout(function() {
+	      				checkPuzzle(frameSize);
+	      			}, 0);
+      			}
+
+      			document.body.onpointermove = null;
+      			puzzle.onpointerup = null;
+
+      			return;
       		}
 
       		
       		if (topSqr?.classList.contains("tail")) {
-      			cell.style.position = "relative";
-      			cell.style.top = "-100%";
 
       			let prevToOuterSqr = topSqr.previousElementSibling;
       			let nextToOuterSqr = topSqr.nextElementSibling;
 
-      			setTimeout(() => {
+      			if (!wasDragged) {
 
-      				cell.replaceWith(topSqr);
+	      			cell.style.position = "relative";
+	      			cell.style.top = "-100%";
 
-      				if (prevToOuterSqr) {
-      					prevToOuterSqr.after(cell);
-      				} else {
-      					nextToOuterSqr.before(cell);
-      				}
-	      			
-	      			cell.style.top = "0%";
-	      			cell.style.position = "";
+	      			setTimeout(() => {
 
-	      			checkPuzzle();
-      			}, 200);
+	      				cell.replaceWith(topSqr);
+
+	      				if (prevToOuterSqr) {
+	      					prevToOuterSqr.after(cell);
+	      				} else {
+	      					nextToOuterSqr.before(cell);
+	      				}
+
+	      				movesVal.innerText = ++movesCount;
+
+		      			if (sounds) stepSound.play();
+
+		      			cell.style.top = "0%";
+		      			cell.style.position = "";
+
+		      			checkPuzzle(frameSize);
+	      			}, 200);
+	      		} else {
+	      			if (translateY < -cell.offsetHeight/2) {
+
+	      				cell.replaceWith(topSqr);
+
+	      				if (prevToOuterSqr) {
+	      					prevToOuterSqr.after(cell);
+	      				} else {
+	      					nextToOuterSqr.before(cell);
+	      				}
+
+	      				movesVal.innerText = ++movesCount;
+	      			}
+	      			cell.style.transform = "";
+
+	      			if (sounds) stepSound.play();
+
+	      			setTimeout(function() {
+	      				checkPuzzle(frameSize);
+	      			}, 0);
+      			}
+
+      			document.body.onpointermove = null;
+      			puzzle.onpointerup = null;
+
+      			return;
       		}
 
       		if (bottomSqr?.classList.contains("tail")) {
-      			cell.style.position = "relative";
-      			cell.style.top = "100%";
 
       			let prevToOuterSqr = bottomSqr.previousElementSibling;
       			let nextToOuterSqr = bottomSqr.nextElementSibling;
 
-      			setTimeout(() => {
+      			if (!wasDragged) {
 
-      				cell.replaceWith(bottomSqr);
+	      			cell.style.position = "relative";
+	      			cell.style.top = "100%";
 
-      				if (prevToOuterSqr) {
-      					prevToOuterSqr.after(cell);
-      				} else {
-      					nextToOuterSqr.before(cell);
-      				}
-	      			
-	      			cell.style.top = "0%";
-	      			cell.style.position = "";
+	      			setTimeout(() => {
 
-	      			checkPuzzle();
-      			}, 200);
-      		}
+	      				cell.replaceWith(bottomSqr);
+
+	      				if (prevToOuterSqr) {
+	      					prevToOuterSqr.after(cell);
+	      				} else {
+	      					nextToOuterSqr.before(cell);
+	      				}
+
+	      				movesVal.innerText = ++movesCount;
+
+	      				if (sounds) stepSound.play();
+		      			
+		      			cell.style.top = "0%";
+		      			cell.style.position = "";
+
+		      			checkPuzzle(frameSize);
+	      			}, 200);
+	      		} else {
+	      			if (translateY > cell.offsetHeight/2) {
+
+	      				cell.replaceWith(bottomSqr);
+
+	      				if (prevToOuterSqr) {
+	      					prevToOuterSqr.after(cell);
+	      				} else {
+	      					nextToOuterSqr.before(cell);
+	      				}
+
+	      				movesVal.innerText = ++movesCount;
+	      			}
+	      			cell.style.transform = "";
+
+	      			if (sounds) stepSound.play();
+
+	      			setTimeout(function() {
+	      				checkPuzzle(frameSize);
+	      			}, 0);
+      			}
+
+      			document.body.onpointermove = null;
+      			puzzle.onpointerup = null;
+
+      			return;
+	      	}	
       	}
 
-      	this.onpointermove = function(event) {
+      	document.body.onpointermove = function(event) {
       		event.preventDefault();
+      		if (!cell) return;
+      		wasDragged = true;
 
-      	}
+      		let isMouseOut = false;
+      		puzzle.onpointerleave = function() {
+      			onPointerUp.call(puzzle);
+      			isMouseOut = true;
+      			puzzle.onpointerleave = null;
+      		}
+      		if (isMouseOut) return;
 
-      	function checkPuzzle() {
-      		if (!row4.lastElementChild.classList.contains("tail")) {
+      		translateX += event.movementX;      		
+      		translateY += event.movementY;
+
+      		if (cell.nextElementSibling?.closest(".tail")) {
+      			translateX = translateX > cell.offsetWidth ? cell.offsetWidth : translateX;
+      			translateX = translateX < 0 ? 0 : translateX;
+
+      			cell.style.transform = `translate(${translateX}px, 0px)`;
       			return;
       		}
 
-      		let rowElem = row1;
-      		let index = 1;
+      		if (cell.previousElementSibling?.closest(".tail")) {
+      			translateX = translateX < -cell.offsetWidth ? -cell.offsetWidth : translateX;
+      			translateX = translateX > 0 ? 0 : translateX;
 
-      		label:
-      		while (rowElem) {
-      			for (let sqr of rowElem.children) {
-      				if (+sqr.dataset.index != index) {
-      					break label;
-      				}
-      				index++;
-      			}
-
-      			rowElem = rowElem.nextElementSibling;
+      			cell.style.transform = `translate(${translateX}px, 0px)`;
+      			return;
       		}
 
-      		if (index == 16) alert("WIN")
+      		
+      		if (topSqr?.classList.contains("tail")) {
+      			translateY = translateY < -cell.offsetHeight ? -cell.offsetHeight : translateY;
+      			translateY = translateY > 0 ? 0 : translateY;
+
+      			cell.style.transform = `translate(0px, ${translateY}px)`;
+      			return;
+      		}
+
+      		if (bottomSqr?.classList.contains("tail")) {
+      			translateY = translateY > cell.offsetHeight ? cell.offsetHeight : translateY;
+      			translateY = translateY < 0 ? 0 : translateY;
+
+      			cell.style.transform = `translate(0px, ${translateY}px)`;
+      			return;
+      		}
       	}
-      }
+    }
+
+  	function checkPuzzle(size) {
+
+  		if (size == 4) {
+  			if (!row4.lastElementChild.classList.contains("tail")) return;
+  		} else if (size == 3) {
+  			if (!row3.lastElementChild.classList.contains("tail")) return;
+  		} else if (size == 8) {
+  			if (!row8.lastElementChild.classList.contains("tail")) return;
+  		}
+  		
+
+  		let rowElem = row1;
+  		let index = 1;
+
+  		label:
+  		while (rowElem) {
+  			for (let sqr of rowElem.children) {
+  				if (+sqr.dataset.index != index) {
+  					break label;
+  				}
+  				index++;
+  			}
+
+  			rowElem = rowElem.nextElementSibling;
+  		}
+
+  		if (index == size * size) {
+  			if (sounds) winSound.play();
+
+  			setTimeout(() => {
+		 		let sec = timeCount%60;
+				let min = Math.trunc(timeCount/60);
+	  			alert(`Hooray! You solved the puzzle in ${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec} and ${movesCount} moves!`);
+
+	  			movesCount = 0;
+	  			movesVal.innerText = movesCount;
+	  			timeCount = 0;
+	  			timeVal.innerText = "00:00";
+
+	  			shufflePuzzle(frameSize);  				
+  			}, 0);
+  		}
+  	}
+
+  	function shufflePuzzle(frameSize) {
+  		let squares = [...puzzle.querySelectorAll('.square')];
+  		shuffleArray(squares);
+
+		let rowElem = row1;
+		while (rowElem) {
+			for (let i = 1; i <= frameSize; i++) {
+				rowElem.append(squares.pop());
+			}
+
+			rowElem = rowElem.nextElementSibling;
+		}
+		if (sounds) shuffleSound.play();
+  	}
+
+	function shuffleArray(array) {
+	  for (let i = array.length - 1; i > 0; i--) {
+	    let j = Math.floor(Math.random() * (i + 1));
+
+	    [array[i], array[j]] = [array[j], array[i]];
+	  }
+	}
     </script>
   </body>
 </html>
