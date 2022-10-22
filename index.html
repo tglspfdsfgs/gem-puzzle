@@ -412,6 +412,7 @@
 
     <script type="text/javascript">
 
+
 	let sounds = true;
 	let stepSound = new Audio('step.mp3');
 	let winSound = new Audio('win.mp3');
@@ -421,6 +422,8 @@
 	let movesCount = 0;
 	let timeCount = 0;
 
+	shufflePuzzle(frameSize);
+	
 	let timerId = setInterval(() => {
 		++timeCount;
 		let sec = timeCount%60;
