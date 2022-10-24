@@ -626,12 +626,73 @@
 
 	shufflePuzzle(frameSize);
 
+	if (localStorage.getItem('size')) {
+
+		frameSize = +localStorage.getItem('size', frameSize);
+		frameSizeVal.innerText = `${frameSize}x${frameSize}`;
+
+		puzzle.classList.remove("puzzle-3x3");
+		puzzle.classList.remove("puzzle-8x8");
+		puzzle.classList.remove("puzzle-4x4");
+		puzzle.classList.add(`puzzle-${frameSize}x${frameSize}`);
+
+		timeCount = +localStorage.getItem('time');
+ 		let sec = timeCount%60;
+		let min = Math.trunc(timeCount/60);
+		timeVal.innerText = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
+
+		movesCount = +localStorage.getItem('moves');
+		movesVal.innerText = movesCount;
+
+		puzzle.innerHTML = localStorage.getItem('puzzleHTML');
+
+		localStorage.removeItem('size');
+		localStorage.removeItem('time');
+		localStorage.removeItem('moves');
+		localStorage.removeItem('puzzleHTML');
+	} else {
+		shufflePuzzle(frameSize);
+	}
+
 	let timerId = setInterval(() => {
 		++timeCount;
 		let sec = timeCount%60;
 		let min = Math.trunc(timeCount/60);
 		timeVal.innerText = `${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec}`;
 	}, 1000);
+
+	saveBtn.onpointerup = function(event) {
+		localStorage.setItem('size', frameSize);
+		localStorage.setItem('time', timeCount);
+		localStorage.setItem('moves', movesCount);
+		localStorage.setItem('puzzleHTML', puzzle.innerHTML);
+
+		alert(`The game saved!
+You can continue from this save point after reloading the page
+(Upon reloading the save point will be removed)`);
+	}
+
+	resultsBtn.onpointerup = function(event) {
+
+		let res = localStorage.getItem('results');
+		if (res == null) {
+			alert("No results yet")
+		} else {
+			res = res.split(';').map(item => item.split(','));
+
+			'\n';
+			let str = 'TOP 10 RESULTS:\n';
+			for (let i = 0; i < 10 && res[i] != undefined; i++) {
+				let sec = res[i][1]%60;
+				let min = Math.trunc(res[i][1]/60);
+
+				str += `${i+1}. Size ${res[i][0]}x${res[i][0]} in ${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec} min and ${res[i][2]} moves\n`;
+			}
+
+			alert(str);
+		}
+
+	}
 
 	size4x4Btn.onpointerup = function(event) {
 		puzzle.classList.remove("puzzle-3x3");
@@ -1306,6 +1367,28 @@
 		 		let sec = timeCount%60;
 				let min = Math.trunc(timeCount/60);
 	  			alert(`Hooray! You solved the puzzle in ${min < 10 ? '0' + min : min}:${sec < 10 ? '0' + sec : sec} and ${movesCount} moves!`);
+
+	  			let res = localStorage.getItem('results');
+	  			
+	  			res ? res : res = "";
+	  			res += (res ? ";" : "") + `${frameSize},${timeCount},${movesCount}`;
+
+	  			res = res.split(';');
+	  			res.sort(function(a, b) {
+
+	  				let aRes = a.split(',');
+	  				let bRes = b.split(',');
+
+	  				let aCoef = aRes[0] * (aRes[2] / (aRes[1] ?aRes[1] : 1) );
+	  				let bCoef = bRes[0] * (bRes[2] / (bRes[1] ?bRes[1] : 1) );
+
+	  				return bCoef - aCoef;
+
+	  			});
+
+	  			res = res.join(';');
+	  			localStorage.setItem('results', res);
+	  			
 
 	  			movesCount = 0;
 	  			movesVal.innerText = movesCount;
