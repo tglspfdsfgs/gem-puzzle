@@ -602,13 +602,6 @@
           <a id="size8x8Btn" href="#">8x8</a>
         </div>
         
-        <div class="other-sizes">
-          Сheck for solvability:
-          <a id="sizeSolvability3x3Btn" href="#">3x3</a>
-          <a id="sizeSolvability4x4Btn" href="#">4x4</a>
-          <a id="sizeSolvability8x8Btn" href="#">8x8</a>
-          <div class="comment">          (for cross-check rewievers)</div>
-        </div>
       </div>
     </div>
 
@@ -624,7 +617,8 @@
 	let movesCount = 0;
 	let timeCount = 0;
 
-	shufflePuzzle(frameSize);
+
+	//shufflePuzzle(frameSize);
 
 	if (localStorage.getItem('size')) {
 
@@ -692,6 +686,60 @@ You can continue from this save point after reloading the page
 			alert(str);
 		}
 
+	}
+
+	function isSolvable() {
+		let arr = [];
+
+  		let rowElem = row1;
+
+  		while (rowElem) {
+  			for (let sqr of rowElem.children) {
+  				if (!isNaN(+sqr.dataset.index)) {
+  					arr.push(+sqr.dataset.index);
+  				}
+  			}
+
+  			rowElem = rowElem.nextElementSibling;
+  		}
+
+  		let inversions = 0;
+  		let blankRowIndex;
+
+  		let n = frameSize*frameSize;
+  		for (let i = 2; i < n; i++) {
+  			if (arr.indexOf(i-1) > arr.indexOf(i)) ++inversions;
+  		}
+
+  		if (frameSize == 4 || frameSize == 8) {
+  			blankRowIndex = 0;
+
+	  		label:
+	  		while (rowElem) {
+	  			if (rowElem.querySelector("tail")) {
+	  				break label;
+	  			}
+	  			index++;
+	  			rowElem = rowElem.nextElementSibling;
+	  		}
+  		} else if (frameSize == 3) {
+  			blankRowIndex = 0;
+  		}
+
+  		if (frameSize == 4 || frameSize == 8) {
+
+  			if ((blankRowIndex+inversions) % 2 == 0) {
+  				return false;
+  			} else {
+  				return true;
+  			}
+  		} else if (frameSize == 3) {
+  			if ((blankRowIndex+inversions) % 2 == 0) {
+  				return true;
+  			} else {
+  				return false;
+  			}		
+  		}
 	}
 
 	size4x4Btn.onpointerup = function(event) {
@@ -869,191 +917,6 @@ You can continue from this save point after reloading the page
 		frameSize = 8;
 		frameSizeVal.innerText = "8x8";
 		shufflePuzzle(frameSize);
-		
-		movesCount = 0;
-		movesVal.innerText = movesCount;
-		timeCount = 0;
-		timeVal.innerText = "00:00";
-	}
-
-	sizeSolvability3x3Btn.onpointerup = function(event) {
-		puzzle.classList.remove("puzzle-3x3");
-		puzzle.classList.remove("puzzle-8x8");
-		puzzle.classList.remove("puzzle-4x4");
-		puzzle.classList.add("puzzle-3x3");
-		puzzle.innerHTML = `
-          <div id="row1" class="row">
-            <div data-index='1' class=" square" id="square-1">1</div>
-            <div data-index='2' class=" square" id="square-2">2</div>
-            <div data-index='3' class=" square" id="square-3">3</div>
-          </div>
-          
-          <div id="row2" class="row">
-          	<div data-index='4' class=" square" id="square-6">4</div>
-            <div data-index='5' class=" square" id="square-5">5</div>
-            <div data-index='6' class=" square" id="square-4">6</div>
-          </div>
-         
-          <div id="row3" class="row">
-            <div data-index='7' class=" square" id="square-7">7</div>
-            <div id="tail" class="square tail"></div>
-            <div data-index='8' class=" square" id="square-8">8</div>
-          </div>
-		`;
-		frameSize = 3;
-		frameSizeVal.innerText = "3x3";
-
-		if (sounds) shuffleSound.play();
-
-		movesCount = 0;
-		movesVal.innerText = movesCount;
-		timeCount = 0;
-		timeVal.innerText = "00:00";
-	}
-
-	sizeSolvability4x4Btn.onpointerup = function(event) {
-		puzzle.classList.remove("puzzle-3x3");
-		puzzle.classList.remove("puzzle-8x8");
-		puzzle.classList.remove("puzzle-4x4");
-		puzzle.classList.add("puzzle-4x4");
-		puzzle.innerHTML = `
-		<div id="row1" class="row">
-            <div data-index='1' class=" square" id="square-1">1</div>
-            <div data-index='2' class=" square" id="square-2">2</div>
-            <div data-index='3' class=" square" id="square-3">3</div>
-            <div data-index='4' class=" square" id="square-4">4</div>
-          </div>
-          
-          <div id="row2" class="row">
-            <div data-index='5' class=" square" id="square-5">5</div>
-            <div data-index='6' class=" square" id="square-6">6</div>
-            <div data-index='7' class=" square" id="square-7">7</div>
-            <div data-index='8' class=" square" id="square-8">8</div>
-          </div>
-         
-          <div id="row3" class="row">
-            <div data-index='9' class=" square" id="square-9">9</div>
-            <div data-index='10' class=" square" id="square-10">10</div>
-            <div data-index='11' class=" square" id="square-11">11</div>
-            <div data-index='12' class=" square" id="square-12">12</div>
-          </div>
-
-          <div id="row4" class="row">
-            <div data-index='13' class=" square" id="square-13">13</div>
-            <div data-index='14' class=" square" id="square-14">14</div>
-            <div id="tail" class="square tail"></div>
-            <div data-index='15' class=" square" id="square-15">15</div>
-          </div>
-		`;
-		frameSize = 4;
-		frameSizeVal.innerText = "4x4";
-
-		if (sounds) shuffleSound.play();
-
-		movesCount = 0;
-		movesVal.innerText = movesCount;
-		timeCount = 0;
-		timeVal.innerText = "00:00";
-	}
-
-	sizeSolvability8x8Btn.onpointerup = function(event) {
-		puzzle.classList.remove("puzzle-3x3");
-		puzzle.classList.remove("puzzle-8x8");
-		puzzle.classList.remove("puzzle-4x4");
-		puzzle.classList.add("puzzle-8x8");
-		puzzle.innerHTML = `
-          <div id="row1" class="row">
-            <div data-index='1' class=" square" id="square-1">1</div>
-            <div data-index='2' class=" square" id="square-2">2</div>
-            <div data-index='3' class=" square" id="square-3">3</div>
-            <div data-index='4' class=" square" id="square-4">4</div>
-            <div data-index='5' class=" square" id="square-5">5</div>
-            <div data-index='6' class=" square" id="square-6">6</div>
-            <div data-index='7' class=" square" id="square-7">7</div>
-            <div data-index='8' class=" square" id="square-8">8</div>
-          </div>
-          
-          <div id="row2" class="row">
-            <div data-index='9' class=" square" id="square-9">9</div>
-            <div data-index='10' class=" square" id="square-10">10</div>
-            <div data-index='11' class=" square" id="square-11">11</div>
-            <div data-index='12' class=" square" id="square-12">12</div>
-            <div data-index='13' class=" square" id="square-13">13</div>
-            <div data-index='14' class=" square" id="square-14">14</div>
-            <div data-index='15' class=" square" id="square-15">15</div>
-            <div data-index='16' class=" square" id="square-16">16</div>
-          </div>
-         
-          <div id="row3" class="row">
-            <div data-index='17' class=" square" id="square-17">17</div>
-            <div data-index='18' class=" square" id="square-18">18</div>
-            <div data-index='19' class=" square" id="square-19">19</div>
-            <div data-index='20' class=" square" id="square-20">20</div>
-            <div data-index='21' class=" square" id="square-21">21</div>
-            <div data-index='22' class=" square" id="square-22">22</div>
-            <div data-index='23' class=" square" id="square-23">23</div>
-            <div data-index='24' class=" square" id="square-24">24</div>
-          </div>
-          
-          <div id="row4" class="row"> 
-            <div data-index='25' class=" square" id="square-25">25</div>
-            <div data-index='26' class=" square" id="square-26">26</div>
-            <div data-index='27' class=" square" id="square-27">27</div>
-            <div data-index='28' class=" square" id="square-28">28</div>
-            <div data-index='29' class=" square" id="square-29">29</div>
-            <div data-index='30' class=" square" id="square-30">30</div>
-            <div data-index='31' class=" square" id="square-31">31</div>
-            <div data-index='32' class=" square" id="square-32">32</div>
-          </div>
-
-          <div id="row5" class="row"> 
-            <div data-index='33' class=" square" id="square-33">33</div>
-            <div data-index='34' class=" square" id="square-34">34</div>
-            <div data-index='35' class=" square" id="square-35">35</div>
-            <div data-index='36' class=" square" id="square-36">36</div>
-            <div data-index='37' class=" square" id="square-37">37</div>
-            <div data-index='38' class=" square" id="square-38">38</div>
-            <div data-index='39' class=" square" id="square-39">39</div>
-            <div data-index='40' class=" square" id="square-40">40</div>
-          </div>
-
-          <div id="row6" class="row"> 
-            <div data-index='41' class=" square" id="square-41">41</div>
-            <div data-index='42' class=" square" id="square-42">42</div>
-            <div data-index='43' class=" square" id="square-43">43</div>
-            <div data-index='44' class=" square" id="square-44">44</div>
-            <div data-index='45' class=" square" id="square-45">45</div>
-            <div data-index='46' class=" square" id="square-46">46</div>
-            <div data-index='47' class=" square" id="square-47">47</div>
-            <div data-index='48' class=" square" id="square-48">48</div>
-          </div>
-
-          <div id="row7" class="row"> 
-            <div data-index='49' class=" square" id="square-49">49</div>
-            <div data-index='50' class=" square" id="square-50">50</div>
-            <div data-index='51' class=" square" id="square-51">51</div>
-            <div data-index='52' class=" square" id="square-52">52</div>
-            <div data-index='53' class=" square" id="square-53">53</div>
-            <div data-index='54' class=" square" id="square-54">54</div>
-            <div data-index='55' class=" square" id="square-55">55</div>
-            <div data-index='56' class=" square" id="square-56">56</div>
-          </div>
-
-          <div id="row8" class="row"> 
-            <div data-index='57' class=" square" id="square-57">57</div>
-            <div data-index='58' class=" square" id="square-58">58</div>
-            <div data-index='59' class=" square" id="square-59">59</div>
-            <div data-index='60' class=" square" id="square-60">60</div>
-            <div data-index='61' class=" square" id="square-61">61</div>
-            <div data-index='62' class=" square" id="square-62">62</div>
-            <div id="tail" class="square tail"></div>
-            <div data-index='63' class=" square" id="square-63">63</div>
-          </div>
-		`;
-		frameSize = 8;
-		frameSizeVal.innerText = "8x8";
-
-		if (sounds) shuffleSound.play();
 		
 		movesCount = 0;
 		movesVal.innerText = movesCount;
@@ -1401,17 +1264,28 @@ You can continue from this save point after reloading the page
   	}
 
   	function shufflePuzzle(frameSize) {
-  		let squares = [...puzzle.querySelectorAll('.square')];
-  		shuffleArray(squares);
 
-		let rowElem = row1;
-		while (rowElem) {
-			for (let i = 1; i <= frameSize; i++) {
-				rowElem.append(squares.pop());
+  		let shuffle = () => {
+	  		let squares = [...puzzle.querySelectorAll('.square')];
+	  		shuffleArray(squares);
+
+			let rowElem = row1;
+			while (rowElem) {
+				for (let i = 1; i <= frameSize; i++) {
+					rowElem.append(squares.pop());
+				}
+
+				rowElem = rowElem.nextElementSibling;
 			}
+			if (sounds) shuffleSound.play();
+  		};
 
-			rowElem = rowElem.nextElementSibling;
+  		shuffle();
+
+		while (!isSolvable()) {
+			shuffle();
 		}
+		
 		if (sounds) shuffleSound.play();
   	}
 
