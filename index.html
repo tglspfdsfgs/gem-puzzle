@@ -617,8 +617,7 @@
 	let movesCount = 0;
 	let timeCount = 0;
 
-
-	//shufflePuzzle(frameSize);
+	isSolvable();
 
 	if (localStorage.getItem('size')) {
 
@@ -712,14 +711,16 @@ You can continue from this save point after reloading the page
   		}
 
   		if (frameSize == 4 || frameSize == 8) {
+
   			blankRowIndex = 0;
 
+  			let rowElem = row1;
 	  		label:
 	  		while (rowElem) {
-	  			if (rowElem.querySelector("tail")) {
-	  				break label;
+	  			if (rowElem.querySelector(".tail")) {
+	  				break;
 	  			}
-	  			index++;
+	  			blankRowIndex++;
 	  			rowElem = rowElem.nextElementSibling;
 	  		}
   		} else if (frameSize == 3) {
