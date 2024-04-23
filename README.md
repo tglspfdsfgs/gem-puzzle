@@ -3,6 +3,8 @@
 
 Welcome to the Gem Puzzle App! This application is a digital implementation of the classic sliding puzzle game. Players are tasked with rearranging a set of numbered tiles within a square grid, aiming to achieve a specific order by sliding the tiles into the empty space.
 
+Deployment: https://tglspfdsfgs.github.io/gem-puzzle/
+
 ## Features
 
 -   **Adaptive Design**: The app's design is responsive, ensuring optimal display and functionality across various devices, including desktops, tablets, and mobile phones.
